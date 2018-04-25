@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+</head>
+<body>
+
+    <form th:action="@{/login}" method="post">
+
+        <input required type="text" id="username" name="username"/>
+        <label for="username">Username</label>
+
+        <input required id="password" type="password" class="validate" name="password"/>
+        <label for="password">Password</label>
+
+        <button type="submit"> Login </button>
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+    </form>
+
+</body>
+</html>
