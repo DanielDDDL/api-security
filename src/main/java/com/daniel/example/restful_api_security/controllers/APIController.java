@@ -3,7 +3,6 @@ package com.daniel.example.restful_api_security.controllers;
 import com.daniel.example.restful_api_security.model.User;
 import com.daniel.example.restful_api_security.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -26,7 +26,7 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
-    private ClientDetailsService clientDetailsService; //TODO understand this
+    private ClientDetailsService clientDetailsService;
 
     @Autowired
     public SecurityConfig (@Qualifier("userDetailsServiceImp") UserDetailsService userDetailsService,
@@ -38,12 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-//        auth.inMemoryAuthentication()
-//                .withUser("admin")
-//                .password("password")
-//                .authorities("ROLE_ADMIN");
-
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -88,19 +82,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Autowired
-    public TokenStoreUserApprovalHandler userApprovalHandler(TokenStore tokenStore){
+    public TokenStoreUserApprovalHandler userApprovalHandler(TokenStore tokenStore) {
+
         TokenStoreUserApprovalHandler handler = new TokenStoreUserApprovalHandler();
         handler.setTokenStore(tokenStore);
         handler.setRequestFactory(new DefaultOAuth2RequestFactory(clientDetailsService));
         handler.setClientDetailsService(clientDetailsService);
         return handler;
+
     }
 
     @Bean
     @Autowired
     public ApprovalStore approvalStore(TokenStore tokenStore) {
+
         TokenApprovalStore store = new TokenApprovalStore();
         store.setTokenStore(tokenStore);
         return store;
+
     }
 }
