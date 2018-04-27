@@ -38,7 +38,9 @@ public class APIController {
     public ResponseEntity<User> getUser (@PathVariable("id") Long id) {
 
         Optional<User> optionalUser = userRepository.findById(id);
-        optionalUser.ifPresent(user -> new ResponseEntity<>(user,HttpStatus.OK));
+        if(optionalUser.isPresent())
+            return new ResponseEntity<>(optionalUser.get(), HttpStatus.OK);
+
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
