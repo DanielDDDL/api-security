@@ -36,23 +36,21 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
         clients.inMemory()
-                .withClient("my-trusted-client")
-                .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-                .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-                .scopes("read", "write", "trust")
-                .secret(passwordEncoder.encode("secret"))
-                .accessTokenValiditySeconds(60 * 5). //Access token is only valid for 5 minutes.
-                refreshTokenValiditySeconds(60 * 30); //Refresh token is only valid for 30 minutes.
 
+        .withClient("my-trusted-client")
+                    .secret(passwordEncoder.encode("secret"))
+                    .authorizedGrantTypes("client_credentials")
+                    .authorities("ROLE_CLIENT")
+                    .scopes("read")
+                    .accessTokenValiditySeconds(60);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-
         endpoints
+                .authenticationManager(authenticationManager)
                 .tokenStore(tokenStore)
-                .userApprovalHandler(userApprovalHandler)
-                .authenticationManager(authenticationManager);
+                .userApprovalHandler(userApprovalHandler);
     }
 
 }

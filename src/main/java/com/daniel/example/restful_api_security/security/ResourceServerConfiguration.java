@@ -22,7 +22,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .and()
                     .authorizeRequests()
                     .antMatchers(   "/api/user/**")
-                    .access("hasRole('ADMIN')")
+                    .access("#oauth2.hasScope('read')")
 
                 .and()
                     .exceptionHandling()

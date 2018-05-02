@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
     @GetMapping
-    public String helloAdminPage(ModelMap modelMap){
+    public String helloAdminPage(ModelMap modelMap) {
         modelMap.addAttribute("message", "Hello, admin!");
         return "hello";
     }

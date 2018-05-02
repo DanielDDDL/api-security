@@ -53,14 +53,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .anonymous()
-                    .disable()
-                    .authorizeRequests()
-                        .antMatchers("/oauth/token")
-                        .permitAll()
-                .and()
-                    .csrf()
-                    .disable();
+                .csrf()
+                .ignoringAntMatchers("/oauth/authorize")
+
+            .and()
+                .authorizeRequests()
+                .anyRequest().authenticated()
+
+            .and()
+                .httpBasic()
+                .disable();
 
     }
 
